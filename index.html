@@ -2429,14 +2429,6 @@
         const bounds = L.latLngBounds(STATIONS_DATA.map(s => [s.lat, s.lng]));
         leafletMap.fitBounds(bounds, { padding: [70, 70], maxZoom: 8 });
       }
-
-      // Buka pop-up stasiun default secara otomatis agar langsung informatif
-      const defaultMarker = leafletMarkers[appState.selectedStationId];
-      if (defaultMarker) {
-        setTimeout(() => {
-          defaultMarker.openPopup();
-        }, 350);
-      }
     }
 
     window.openStationFromMap = function (stationId) {
