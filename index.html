@@ -348,19 +348,34 @@
           </div>
           <div>
             <div class="flex flex-wrap items-center gap-2">
-              <label for="station-select" class="sr-only">Pilih Stasiun</label>
-              <select
-                id="station-select"
-                class="text-sm sm:text-base font-extrabold bg-transparent text-slate-900 dark:text-white border-b border-dashed border-teal-400 dark:border-blue-600 focus:outline-none cursor-pointer pr-2 py-0.5"
-              >
-                <!-- Opsi stasiun diisi dinamis -->
-              </select>
+              <!-- Custom Dark/Light Themed Station Dropdown -->
+              <div id="station-dropdown-wrapper" class="relative">
+                <button
+                  type="button"
+                  id="station-dropdown-btn"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  class="inline-flex items-center gap-2 text-sm sm:text-base font-extrabold text-slate-900 dark:text-white border-b border-dashed border-teal-400 dark:border-blue-600 hover:text-teal-700 dark:hover:text-sky-300 focus:outline-none cursor-pointer pr-1.5 py-0.5 transition-colors"
+                >
+                  <span id="station-dropdown-label">PulseNode Tambakrejo, Kota Semarang</span>
+                  <i id="station-dropdown-chevron" data-lucide="chevron-down" class="w-4 h-4 text-teal-600 dark:text-sky-400 transition-transform duration-200"></i>
+                </button>
+
+                <div
+                  id="station-dropdown-menu"
+                  role="listbox"
+                  class="hidden absolute left-0 top-full mt-2 w-80 sm:w-96 z-40 rounded-2xl border border-teal-200 dark:border-blue-800 bg-white dark:bg-[#0b1221] shadow-2xl p-1.5 space-y-1"
+                >
+                  <!-- Daftar opsi PulseNode dirender dinamis -->
+                </div>
+              </div>
+
               <span id="station-infra-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-teal-500/10 text-teal-700 border border-teal-500/20 dark:bg-blue-500/15 dark:text-sky-400 dark:border-blue-500/25">
-                Dermaga Pelabuhan Terpadu
+                Stasiun Pemantauan Pesisir
               </span>
             </div>
             <p id="station-coords-text" class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">
-              6.9485° LS, 110.4215° BT
+              6.946551° LS, 110.438556° BT
             </p>
           </div>
         </div>
@@ -929,12 +944,12 @@
           </label>
           <select
             id="data-interval-select"
-            class="px-3 py-1.5 rounded-xl text-xs font-mono font-semibold border border-teal-200 dark:border-blue-900 bg-teal-50/70 dark:bg-[#050811] text-slate-800 dark:text-slate-100 focus:outline-none focus:border-teal-500 dark:focus:border-blue-500 cursor-pointer"
+            class="px-3 py-1.5 rounded-xl text-xs font-mono font-semibold border border-teal-200 dark:border-blue-900 bg-teal-50/70 dark:bg-[#050811] text-slate-800 dark:text-slate-100 focus:outline-none focus:border-teal-500 dark:focus:border-blue-500 cursor-pointer [color-scheme:light] dark:[color-scheme:dark]"
           >
-            <option value="1m">1 Menit</option>
-            <option value="5m">5 Menit</option>
-            <option value="15m" selected>15 Menit</option>
-            <option value="1h">1 Jam</option>
+            <option value="1m" class="bg-white text-slate-900 dark:bg-[#0b1221] dark:text-slate-100">1 Menit</option>
+            <option value="5m" class="bg-white text-slate-900 dark:bg-[#0b1221] dark:text-slate-100">5 Menit</option>
+            <option value="15m" selected class="bg-white text-slate-900 dark:bg-[#0b1221] dark:text-slate-100">15 Menit</option>
+            <option value="1h" class="bg-white text-slate-900 dark:bg-[#0b1221] dark:text-slate-100">1 Jam</option>
           </select>
         </div>
       </div>
@@ -1262,7 +1277,7 @@
               Standar Baku Mutu KepMenLH No. 51/2004 &amp; Penjelasan Parameter
             </h3>
             <p id="modal-station-context" class="text-[11px] font-mono text-teal-700 dark:text-sky-400">
-              Stasiun Aktif: Stasiun Pemantauan Tanjung Emas Semarang
+              Stasiun Aktif: PulseNode Tambakrejo, Kota Semarang
             </p>
           </div>
         </div>
@@ -1294,22 +1309,22 @@
   <!-- ===================================================================== -->
   <script>
     /**
-     * 1. Definisi 4 Stasiun Pengamatan Pesisir & Dermaga Terpadu (Jawa Tengah & Laut Jawa)
+     * 1. Definisi 4 Titik PulseNode Pemantauan Oseanografi & Cuaca Maritim
      */
     const STATIONS_DATA = [
       {
         id: 'semarang',
         name: {
-          id: 'Stasiun Pemantauan Tanjung Emas Semarang',
-          en: 'Tanjung Emas Monitoring Station Semarang'
+          id: 'PulseNode Tambakrejo, Kota Semarang',
+          en: 'PulseNode Tambakrejo, Kota Semarang'
         },
         infra: {
-          id: 'Dermaga Pelabuhan Terpadu',
-          en: 'Integrated Harbor Pier'
+          id: 'Stasiun Pemantauan Pesisir',
+          en: 'Coastal Monitoring Station'
         },
-        coordsText: '6.9485° LS, 110.4215° BT',
-        lat: -6.9485,
-        lng: 110.4215,
+        coordsText: '6.946551° LS, 110.438556° BT',
+        lat: -6.9465510,
+        lng: 110.4385560,
         baseline: {
           waterTemp: 28.6, waterTempMin: 27.9, waterTempMax: 29.5,
           tide: 1.48, tideTrend: 0.16,
@@ -1325,16 +1340,16 @@
       {
         id: 'jepara',
         name: {
-          id: 'Stasiun Pemantauan Teluk Awur Jepara',
-          en: 'Teluk Awur Monitoring Station Jepara'
+          id: 'PulseNode Teluk Awur, Jepara',
+          en: 'PulseNode Teluk Awur, Jepara'
         },
         infra: {
-          id: 'Stasiun Pengamatan Pesisir',
-          en: 'Coastal Observation Station'
+          id: 'Stasiun Pemantauan Pesisir',
+          en: 'Coastal Monitoring Station'
         },
-        coordsText: '6.6168° LS, 110.6385° BT',
-        lat: -6.6168,
-        lng: 110.6385,
+        coordsText: '6.617047° LS, 110.639112° BT',
+        lat: -6.6170474,
+        lng: 110.6391119,
         baseline: {
           waterTemp: 28.2, waterTempMin: 27.5, waterTempMax: 29.0,
           tide: 1.24, tideTrend: 0.14,
@@ -1350,16 +1365,16 @@
       {
         id: 'karimunjawa',
         name: {
-          id: 'Stasiun Pemantauan Karimunjawa',
-          en: 'Karimunjawa Monitoring Station'
+          id: 'PulseNode Karimunjawa, Jepara',
+          en: 'PulseNode Karimunjawa, Jepara'
         },
         infra: {
-          id: 'Dermaga Kepulauan Laut Jawa',
-          en: 'Java Sea Archipelago Pier'
+          id: 'Stasiun Kepulauan Laut Jawa',
+          en: 'Java Sea Archipelago Station'
         },
-        coordsText: '5.8772° LS, 110.4275° BT',
-        lat: -5.8772,
-        lng: 110.4275,
+        coordsText: '5.834723° LS, 110.428620° BT',
+        lat: -5.8347229,
+        lng: 110.4286202,
         baseline: {
           waterTemp: 28.4, waterTempMin: 27.8, waterTempMax: 29.1,
           tide: 1.05, tideTrend: -0.11,
@@ -1373,28 +1388,28 @@
         }
       },
       {
-        id: 'pekalongan',
+        id: 'alor',
         name: {
-          id: 'Stasiun Pemantauan Pelabuhan Pekalongan',
-          en: 'Pekalongan Harbor Monitoring Station'
+          id: 'PulseNode ALaDin, Alor',
+          en: 'PulseNode ALaDin, Alor'
         },
         infra: {
-          id: 'Stasiun Muara & Pesisir Terpadu',
-          en: 'Integrated Estuary & Coastal Pier'
+          id: 'Stasiun Kepulauan Nusa Tenggara Timur',
+          en: 'East Nusa Tenggara Archipelago Station'
         },
-        coordsText: '6.8588° LS, 109.6872° BT',
-        lat: -6.8588,
-        lng: 109.6872,
+        coordsText: '8.269758° LS, 124.407260° BT',
+        lat: -8.269758,
+        lng: 124.407260,
         baseline: {
-          waterTemp: 28.9, waterTempMin: 28.1, waterTempMax: 29.8,
-          tide: 1.38, tideTrend: 0.15,
-          salinity: 31.4, salinityMin: 30.2, salinityMax: 32.5,
-          ph: 8.04, phMin: 7.92, phMax: 8.12,
-          do: 5.95, doMin: 5.42, doMax: 6.38,
-          windKnots: 11.2, windDeg: 125, windGust: 14.4,
-          airTemp: 30.6, airTempMin: 26.9, airTempMax: 32.7,
-          humidity: 79, humidityMin: 70, humidityMax: 87,
-          rainfall: 1.6, rainfall24h: 8.6, rainfallMax: 4.2
+          waterTemp: 28.1, waterTempMin: 27.4, waterTempMax: 28.9,
+          tide: 1.32, tideTrend: 0.15,
+          salinity: 34.4, salinityMin: 34.0, salinityMax: 34.8,
+          ph: 8.22, phMin: 8.16, phMax: 8.28,
+          do: 6.92, doMin: 6.48, doMax: 7.25,
+          windKnots: 13.5, windDeg: 120, windGust: 16.8,
+          airTemp: 29.7, airTempMin: 26.1, airTempMax: 31.4,
+          humidity: 73, humidityMin: 65, humidityMax: 81,
+          rainfall: 0.0, rainfall24h: 0.8, rainfallMax: 0.6
         }
       }
     ];
@@ -2402,13 +2417,18 @@
       if (!mapEl || leafletMap) return;
 
       leafletMap = L.map('stations-map', {
-        center: [-6.55, 110.30],
-        zoom: 8,
+        center: [-7.10, 117.40],
+        zoom: 5,
         zoomControl: false
       });
 
       updateMapTileLayer();
       updateMapMarkers();
+
+      if (STATIONS_DATA.length > 0) {
+        const bounds = L.latLngBounds(STATIONS_DATA.map(s => [s.lat, s.lng]));
+        leafletMap.fitBounds(bounds, { padding: [70, 70], maxZoom: 8 });
+      }
 
       // Buka pop-up stasiun default secara otomatis agar langsung informatif
       const defaultMarker = leafletMarkers[appState.selectedStationId];
@@ -2429,12 +2449,71 @@
     /**
      * 8. Render Kartu Parameter, Grafik Multi-Sumbu & Tabel Log Telemetri
      */
+    function closeStationDropdown() {
+      const menu = document.getElementById('station-dropdown-menu');
+      const btn = document.getElementById('station-dropdown-btn');
+      const chevron = document.getElementById('station-dropdown-chevron');
+      if (menu) menu.classList.add('hidden');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      if (chevron) chevron.classList.remove('rotate-180');
+    }
+
+    function toggleStationDropdown() {
+      const menu = document.getElementById('station-dropdown-menu');
+      const btn = document.getElementById('station-dropdown-btn');
+      const chevron = document.getElementById('station-dropdown-chevron');
+      if (!menu) return;
+      const willOpen = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !willOpen);
+      if (btn) btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      if (chevron) chevron.classList.toggle('rotate-180', willOpen);
+    }
+
     function renderStationSelector() {
-      const sel = document.getElementById('station-select');
-      if (!sel) return;
-      sel.innerHTML = STATIONS_DATA.map(st =>
-        `<option value="${st.id}" ${st.id === appState.selectedStationId ? 'selected' : ''}>${st.name[appState.lang]}</option>`
-      ).join('');
+      const labelEl = document.getElementById('station-dropdown-label');
+      const menuEl = document.getElementById('station-dropdown-menu');
+      const activeSt = getSelectedStation();
+
+      if (labelEl && activeSt) {
+        labelEl.textContent = activeSt.name[appState.lang];
+      }
+      if (!menuEl) return;
+
+      menuEl.innerHTML = STATIONS_DATA.map(st => {
+        const isSelected = st.id === appState.selectedStationId;
+        const itemCls = isSelected
+          ? 'bg-teal-600 text-white dark:bg-blue-600 dark:text-white shadow-sm'
+          : 'text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-blue-950/80';
+        const subCls = isSelected
+          ? 'text-teal-100 dark:text-blue-100'
+          : 'text-slate-500 dark:text-slate-400';
+
+        return `
+          <button
+            type="button"
+            role="option"
+            aria-selected="${isSelected ? 'true' : 'false'}"
+            data-station-id="${st.id}"
+            class="station-option-btn w-full text-left px-3 py-2.5 rounded-xl transition-colors flex items-center justify-between gap-2 cursor-pointer ${itemCls}"
+          >
+            <div>
+              <div class="text-xs sm:text-sm font-bold leading-snug">${st.name[appState.lang]}</div>
+              <div class="text-[11px] font-mono ${subCls} mt-0.5">${st.infra[appState.lang]} • ${st.coordsText}</div>
+            </div>
+            ${isSelected ? '<span class="w-2 h-2 rounded-full bg-white shrink-0"></span>' : ''}
+          </button>
+        `;
+      }).join('');
+
+      menuEl.querySelectorAll('.station-option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          appState.selectedStationId = btn.dataset.stationId;
+          closeStationDropdown();
+          const st = getSelectedStation();
+          appState.stationsState[st.id].records = buildTimeSeriesRecords(st, appState.startDate, appState.endDate, appState.dataInterval);
+          refreshStationView(true);
+        });
+      });
     }
 
     function renderParameterCards(station) {
@@ -3229,17 +3308,23 @@
         if (leafletMap) leafletMap.zoomOut();
       });
       document.getElementById('map-reset-bounds-btn').addEventListener('click', () => {
-        if (!leafletMap) return;
-        const bounds = L.latLngBounds(STATIONS_DATA.map(s => [s.lat, s.lng]));
-        leafletMap.fitBounds(bounds, { padding: [60, 60] });
+        if (leafletMap && STATIONS_DATA.length > 0) {
+          const bounds = L.latLngBounds(STATIONS_DATA.map(s => [s.lat, s.lng]));
+          leafletMap.fitBounds(bounds, { padding: [60, 60], maxZoom: 9 });
+        }
       });
 
-      // 4. Selector Stasiun, Rentang Tanggal (Dari - Sampai) & Interval Data
-      document.getElementById('station-select').addEventListener('change', (e) => {
-        appState.selectedStationId = e.target.value;
-        const st = getSelectedStation();
-        appState.stationsState[st.id].records = buildTimeSeriesRecords(st, appState.startDate, appState.endDate, appState.dataInterval);
-        refreshStationView(true);
+      // 4. Selector Stasiun (Custom Dropdown), Rentang Tanggal (Dari - Sampai) & Interval Data
+      document.getElementById('station-dropdown-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleStationDropdown();
+      });
+
+      document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('station-dropdown-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+          closeStationDropdown();
+        }
       });
 
       const handleDateRangeChange = (changedField) => {
@@ -3309,7 +3394,10 @@
       });
 
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeParamModal();
+        if (e.key === 'Escape') {
+          closeParamModal();
+          closeStationDropdown();
+        }
       });
 
       // 7. Jalankan Stream Simulasi Telemetri Real-Time Setiap 5 Detik
